@@ -1,0 +1,23 @@
+﻿@model ICollection<Shipper>
+
+<table class="table table-hover"> 
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Firma Adi</td>
+            <td>Telefon</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ShipperId</td>
+                <td>@item.CompanyName</td>
+                <td>@item.Phone</td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
