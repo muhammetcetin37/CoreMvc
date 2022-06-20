@@ -18,10 +18,25 @@ namespace Core6Mvc.Controllers
             var result = context.Shippers.ToList();
             return View(result);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             Shipper shipper = new();
+            return View(shipper);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Shipper shipper)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Shippers.Add(shipper);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
             return View(shipper);
         }
     }
