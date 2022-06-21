@@ -1,0 +1,22 @@
+﻿@model Shipper
+
+<form asp-controller="Shipper" asp-action="Delete" method="post">
+    <div class="mb-3">
+      <label asp-for="CompanyName" class="form-label">@Model.CompanyName</label>
+        <input type="text" class="form-control" asp-for="CompanyName" readonly>
+    </div>
+    <input type="hidden" asp-for="ShipperId" />
+    <div class="mb-3">
+      <label asp-for="Phone" class="form-label">@Model.Phone</label>
+       <input type="text" class="form-control" asp-for="Phone" readonly>
+  
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Sil</button>
+    </div>
+    <div class="mb-3">
+        <a class="btn btn-info" asp-action="Index" asp-controller="Shipper">Listeye Geri Dön</a>
+    </div>
+
+</form>
