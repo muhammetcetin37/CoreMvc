@@ -10,6 +10,9 @@ namespace Core6Mvc.AutoMapper
         {
             CreateMap<Employee, EmployeeListDto>();
             CreateMap<EmployeeCreateDto, Employee>();
+
+            CreateMap<Employee, EmployeeUpdateDto>();
+            CreateMap<EmployeeUpdateDto, Employee>();
         }
 
     }

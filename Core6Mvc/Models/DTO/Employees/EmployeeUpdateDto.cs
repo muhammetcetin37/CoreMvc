@@ -1,12 +1,24 @@
-﻿namespace Core6Mvc.Models.DTO.Employees
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Core6Mvc.Models.DTO.Employees
 {
     public class EmployeeUpdateDto
     {
+
         public int EmployeeId { get; set; }
+        [Required(ErrorMessage = "Ad Alani  Boş Geçilemez.")]
+        [StringLength(50, ErrorMessage = "Ad Alani 50 Karakterden Büyük Olamaz.")]
+        [MinLength(2, ErrorMessage = "Ad Alani 2 den az olamaz.")]
         public string? LastName { get; set; } = null!;
+
+        [Required(ErrorMessage = "Soyad Alani  Boş Geçilemez.")]
+        [StringLength(50, ErrorMessage = "Soyad Alani 50 Karakterden Büyük Olamaz.")]
+        [MinLength(2, ErrorMessage = "Ad Alani 2 den az olamaz.")]
         public string? FirstName { get; set; } = null!;
         public string? Title { get; set; }
         public string? TitleOfCourtesy { get; set; }
+
+        [Required(ErrorMessage = "Dogum Tarihi Boş Geçilemez")]
         public DateTime? BirthDate { get; set; }
         public DateTime? HireDate { get; set; }
         public string? Address { get; set; }

@@ -46,6 +46,14 @@ namespace Core6Mvc.Controllers
         }
 
         [HttpGet]
+        public IActionResult Update(int Id)
+        {
+            var calisan = context.Employees.FirstOrDefault(p => p.EmployeeId == Id);
+            EmployeeUpdateDto updateDto = mapper.Map<EmployeeUpdateDto>(calisan);
+            return View(updateDto);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             EmployeeCreateDto createDto = new();
@@ -74,5 +82,7 @@ namespace Core6Mvc.Controllers
 
             return View(input);
         }
+
+
     }
 }
