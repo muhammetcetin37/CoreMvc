@@ -1,0 +1,30 @@
+﻿@model IList<Category>
+
+
+ <a class="btn btn-primary" asp-controller="Category" asp-action="Create"> Yeni Kayit </a>  
+<table class="table table-hover"> 
+    <thead>
+        <tr>
+            
+            <td>ID</td>
+            <td>Kategory</td>
+            <td>Aciklama</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.CategoryName</td>
+                <td>@item.Description</td>
+                <td>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId">Sil</a>
+                    <a class="btn btn-secondary" asp-action="Update" asp-controller="Category" asp-route-id="@item.CategoryId">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
