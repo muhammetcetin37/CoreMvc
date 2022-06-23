@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Northwind.DAL\Northwind.DAL.csproj" />
     <ProjectReference Include="..\NorthwindhEntitys\Northwind.Entities.csproj" />
   </ItemGroup>
 

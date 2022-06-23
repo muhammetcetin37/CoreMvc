@@ -1,5 +1,7 @@
 using Core6Mvc.AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Northwind.DAL.Abstract;
+using Northwind.DAL.Concrete;
 using Northwind.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<NorthwindContext>(options => options.UseSqlServer("Server=.;Database=NorthWind;User Id=sa;Password=123"));
 builder.Services.AddAutoMapper(typeof(NorthwindProfile));
-
+builder.Services.AddScoped<ICategoryDal, CategoryDal>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

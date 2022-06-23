@@ -7,7 +7,7 @@ namespace Northwind.DAL.Concrete
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class, new()
     {
-        NorthwindContext db;
+        protected NorthwindContext db;
         public RepositoryBase()
         {
             db = new NorthwindContext();

@@ -3,7 +3,7 @@ using Northwind.Entities;
 
 namespace Northwind.DAL.Concrete
 {
-    internal class ProductDal : RepositoryBase<Product>, IProductDal
+    public class ProductDal : RepositoryBase<Product>, IProductDal
     {
     }
 }

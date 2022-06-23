@@ -2,7 +2,8 @@
 
 namespace Northwind.DAL.Abstract
 {
-    internal interface ICategoryDal : IRepositoryBase<Category>
+    public interface ICategoryDal : IRepositoryBase<Category>
     {
+        List<Product> GetProducts(string categoryName);
     }
 }
