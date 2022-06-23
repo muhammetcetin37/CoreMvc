@@ -34,7 +34,7 @@ namespace Northwind.BL.Concrete
 
         public IQueryable<T> GetInclude(Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] include)
         {
-            return repository.GetAllInclude(filter, include);
+            return repository.GetInclude(filter, include);
         }
 
         public int Update(T input)

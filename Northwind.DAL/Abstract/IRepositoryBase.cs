@@ -12,6 +12,6 @@ namespace Northwind.DAL.Abstract
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
         IQueryable<T> GetInclude(Expression<Func<T, bool>> filter = null,
                             params Expression<Func<T, object>>[] include);
-        IQueryable<T> GetAllInclude<T>(Expression<Func<T, bool>> filter, Expression<Func<T, object>>[] include) where T : class, new();
+
     }
 }

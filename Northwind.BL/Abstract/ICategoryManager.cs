@@ -2,8 +2,7 @@
 
 namespace Northwind.BL.Abstract
 {
-    public interface IProductManager : IManagerBase<Product>
+    public interface ICategoryManager : IManagerBase<Category>
     {
-
     }
 }
