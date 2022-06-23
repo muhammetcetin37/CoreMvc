@@ -5,6 +5,7 @@
 
 <form asp-action="Create" method="post"> 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="EmployeeId" value="@Model.EmployeeId" />
     <div class="from-group">
         <label asp-for="FirstName" class="control-label"></label>
         <input asp-for="FirstName" class="form-control"/>
@@ -37,12 +38,13 @@
     </div>
     <div class="from-group">
         <label asp-for="Notes" class="control-label"></label>
-        <textarea asp-for="Notes" class="form-control" typeof="text"/>
+        <input type="text" asp-for="Notes" class="form-control" typeof="text"/>
         <span asp-validation-for="Notes" class="text-danger"></span>
 
     </div>
 
-    <div class="from-group">
+    
     <button type="submit" class="btn btn-success">Kaydet</button>
-    </div>
+    <input type="button" class="btn btn-success" value="Listeye Geri Dön" asp-action="Index" />
+   
 </form>

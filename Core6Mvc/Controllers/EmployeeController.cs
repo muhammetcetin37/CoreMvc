@@ -48,11 +48,23 @@ namespace Core6Mvc.Controllers
         [HttpGet]
         public IActionResult Update(int Id)
         {
-            var calisan = context.Employees.FirstOrDefault(p => p.EmployeeId == Id);
+            var calisan = context.Employees.Find(Id);
             EmployeeUpdateDto updateDto = mapper.Map<EmployeeUpdateDto>(calisan);
             return View(updateDto);
         }
+        [HttpPost]
+        public IActionResult Update(EmployeeUpdateDto input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(input);
+            }
+            Employee gelen = mapper.Map<Employee>(input);
+            context.Employees.Update(gelen);
+            context.SaveChanges();
 
+            return RedirectToAction("Index");
+        }
         [HttpGet]
         public IActionResult Create()
         {
