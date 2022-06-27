@@ -10,5 +10,7 @@
         public string? Country { get; set; }
         public string? City { get; set; }
         public string? HomePhone { get; set; }
+
+        public byte[] Photo { get; set; }
     }
 }

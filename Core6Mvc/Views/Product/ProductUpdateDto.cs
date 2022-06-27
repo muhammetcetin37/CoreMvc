@@ -1,4 +1,6 @@
-﻿namespace Core6Mvc.Views.Product
+﻿using Northwind.Entities;
+
+namespace Core6Mvc.Views.Product
 {
     public class ProductUpdateDto
     {
