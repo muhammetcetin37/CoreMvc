@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core6Mvc.Models.DTO.Employees;
-using Core6Mvc.Models.DTO.Product;
 using Core6Mvc.Models.DTO.Products;
 using Northwind.Entities;
 
@@ -30,8 +29,6 @@ namespace Core6Mvc.AutoMapper
             CreateMap<Product, ProductListDTO>()
                 .ForMember(p => p.CategoryName, src => src.MapFrom(p => p.Category.CategoryName))
                 .ForMember(p => p.CompanyName, src => src.MapFrom(p => p.Supplier.CompanyName));
-
-            CreateMap<ProductCreateDTO, Product>();
 
 
 
