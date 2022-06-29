@@ -2,12 +2,12 @@
 @model IEnumerable<EmployeeListDto>
 
 
+<a class="btn btn-primary" asp-action="Create" asp-controller="Employee">Yeni Kayit</a>
 
-    <a class="btn btn-primary" asp-action="Create" asp-controller="Employee">Yeni Kayit</a>
-<table class="table table-haver">
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model=>model.EmployeeId)</th>
+            <th> @Html.DisplayNameFor(model => model.EmployeeId)</th>
             <th>@Html.DisplayNameFor(model=>model.FirstName)</th>
             <th>@Html.DisplayNameFor(model=>model.LastName)</th>
             <th>@Html.DisplayNameFor(model=>model.Title)</th>
@@ -15,12 +15,12 @@
             <th>@Html.DisplayNameFor(model=>model.Country)</th>
             <th>@Html.DisplayNameFor(model=>model.City)</th>
             <th>@Html.DisplayNameFor(model=>model.HomePhone)</th>
-            <td></td>
+            <th>@Html.DisplayNameFor(model=>model.Photo)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var emp in Model)
+        @foreach(var emp in Model)
         {
             <tr>
                 <td>@emp.EmployeeId</td>
@@ -31,9 +31,87 @@
                 <td>@emp.Country</td>
                 <td>@emp.City</td>
                 <td>@emp.HomePhone</td>
-                <td><a class="btn btn-danger" asp-action="Delete" asp-controller="Employee" asp-route-Id="@emp.EmployeeId">Sil</a></td>
-                <td><a class="btn btn-success" asp-action="Update" asp-controller="Employee" asp-route-Id="@emp.EmployeeId">Güncelle</a></td>
-            </tr>  
+                @{
+                    byte[] photo = emp.Photo;
+                    string imgSrc = null;
+                    if(photo!=null)
+                    {
+                        try
+                        {
+                        MemoryStream ms = new();
+                        ms.Write(photo, 78, photo.Length - 78);
+                        var base64 = Convert.ToBase64String(ms.ToArray());
+                        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                            
+                        }
+                       
+
+                                        }
+                }
+                
+                <td><img src="@imgSrc" class="img-tumbnail"/></td>
+
+
+                <td><a class="btn btn-danger" 
+                        asp-action="Delete" 
+                        asp-controller="Employee"
+                        asp-route-id="@emp.EmployeeId">Sil</a> 
+                 </td>
+                 <td><a class="btn btn-success" 
+                        asp-action="Update" 
+                        asp-controller="Employee"
+                        asp-route-id="@emp.EmployeeId">Güncelle</a> 
+                 </td>
+
+            </tr>
+        
         }
     </tbody>
+
 </table>
+
+@foreach (var emp in Model)
+{
+    
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            @{
+                    byte[] photo = emp.Photo;
+                    string imgSrc = null;
+                    if(photo!=null)
+                    {
+                        try
+                        {
+                        MemoryStream ms = new();
+                        ms.Write(photo, 78, photo.Length - 78);
+                        var base64 = Convert.ToBase64String(ms.ToArray());
+                        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                            
+                        }
+                       
+
+                                        }
+                }
+              <img src="@imgSrc" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">@(emp.FirstName + " " + emp.LastName)</h5>
+                <p class="card-text">@emp.Title</p>
+                <a href="#" class="btn btn-primary">Aldigi siparisler</a>
+              </div>
+        </div>
+    </div>
+</div>
+}
+<partial name="footer" />

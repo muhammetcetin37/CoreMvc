@@ -1,7 +1,7 @@
 ﻿@model IList<Category>
 
 
- <a class="btn btn-primary" asp-controller="Category" asp-action="Create"> Yeni Kayit </a>  
+<a class="btn btn-primary" asp-controller="Category" asp-action="Create"> Yeni Kayit </a>  
 <table class="table table-hover"> 
     <thead>
         <tr>
@@ -9,6 +9,7 @@
             <td>ID</td>
             <td>Kategory</td>
             <td>Aciklama</td>
+            <td>Foto</td>
             <td></td>
         </tr>
     </thead>
@@ -19,7 +20,21 @@
                 <td>@item.CategoryId</td>
                 <td>@item.CategoryName</td>
                 <td>@item.Description</td>
+                @{
+                    byte[] photo = item.Picture;
+                    string imgSrc = null;
+                    if(photo!=null)
+                    {
 
+                        MemoryStream ms = new();
+                        ms.Write(photo, 78, photo.Length - 78);
+
+                    var base64 = Convert.ToBase64String(ms.ToArray());
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                }
+                
+                <td><img src="@imgSrc" class="img-tumbnail"/></td>
                 <td>
                     <a class="btn btn-danger" asp-action="Delete" asp-controller="Category" asp-route-id="@item.CategoryId">Sil</a>
                     <a class="btn btn-secondary" asp-action="Update" asp-controller="Category" asp-route-id="@item.CategoryId">Güncelle</a>

@@ -1,0 +1,19 @@
+﻿
+@* dinamik olarak model gönderdik layout tan farklı olarak bu partial model 
+
+ile aldığı bilgiye göre bu sayfayı dolduracaktır.  *@
+
+@model List<SliderVM>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.Name
+            <a href="@item.Url">@item.Name</a>
+        </li>
+    }
+
+</ul>
+
+@* Home klasörü altındaki bazı sayflar aynı tasarımı kullanırlarsa partial yapmak mantıklıdır.  *@

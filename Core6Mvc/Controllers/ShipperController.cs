@@ -50,19 +50,21 @@ namespace Core6Mvc.Controllers
         [HttpPost]
         public IActionResult Delete(Shipper shipper)
         {
-            var removeShipper = context.Shippers.FirstOrDefault(p => p.ShipperId == shipper.ShipperId);
+            //var removeShipper = context.Shippers.FirstOrDefault(p => p.ShipperId == shipper.ShipperId);
 
-            context.Remove(removeShipper);
+            context.Remove(shipper);
             context.SaveChanges();
             return RedirectToAction("Index");
 
         }
+
         [HttpGet]
         public IActionResult Update(int id)
         {
             Shipper shipper = context.Shippers.Find(id);
             return View(shipper);
         }
+
         [HttpPost]
         public IActionResult Update(Shipper shipper)
         {

@@ -1,102 +1,172 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Northwind.BL.Abstract;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Northwind.Entities;
 
 namespace Core6Mvc.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
-        private readonly IProductManager manager;
-        private readonly IMapper mapper;
+        private readonly NorthwindContext _context;
 
-        public ProductController(IProductManager manager, IMapper mapper)
+        public ProductsController(NorthwindContext context)
         {
-            this.manager = manager;
-            this.mapper = mapper;
-
+            _context = context;
         }
 
-        // GET: ProductController
-        public ActionResult Index()
+        // GET: Products
+        public async Task<IActionResult> Index()
         {
-            return View(manager.GetAll().ToList());
+            var northwindContext = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Supplier);
+
+            return View(await northwindContext.ToListAsync());
         }
 
-        // GET: ProductController/Details/5
-        public ActionResult Details(int id)
+        // GET: Products/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var product = manager.Find(id);
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Supplier)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
 
             return View(product);
         }
 
-        // GET: ProductController/Create
-        public ActionResult Create()
+        // GET: Products/Create
+        public IActionResult Create()
         {
-            Product product = new Product();
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName");
+            return View();
+        }
+
+        // POST: Products/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,SupplierId,CategoryId,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
             return View(product);
         }
 
-        // POST: ProductController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(ProductCreateDto createDto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(createDto);
-        //    }
-        //    else
-        //    {
-        //        var result = mapper.Map<Product>(createDto);
-
-        //        manager.Add(result);
-        //        return RedirectToAction("Index");
-        //    }
-
-        //}
-
-        // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Products/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            return View(product);
         }
 
-        // POST: ProductController/Edit/5
+        // POST: Products/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,SupplierId,CategoryId,QuantityPerUnit,UnitPrice,UnitsInStock,UnitsOnOrder,ReorderLevel,Discontinued")] Product product)
         {
-            try
+            if (id != product.ProductId)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductExists(product.ProductId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            return View(product);
         }
 
-        // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Products/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Supplier)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
 
-        // POST: ProductController/Delete/5
-        [HttpPost]
+        // POST: Products/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
+            if (_context.Products == null)
             {
-                return RedirectToAction(nameof(Index));
+                return Problem("Entity set 'NorthwindContext.Products'  is null.");
             }
-            catch
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
             {
-                return View();
+                _context.Products.Remove(product);
             }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProductExists(int id)
+        {
+            return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
     }
 }
