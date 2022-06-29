@@ -26,5 +26,9 @@ namespace Core6Mvc.Controllers
             ICollection<ProductListDTO> products = mapper.Map<ICollection<ProductListDTO>>(result);
             return View(products);
         }
+        public IActionResult Create()
+        {
+            ProductCreateDTO
+        }
     }
 }
