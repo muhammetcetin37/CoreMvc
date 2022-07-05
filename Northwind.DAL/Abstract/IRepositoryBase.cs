@@ -7,11 +7,10 @@ namespace Northwind.DAL.Abstract
         int Add(T input);
         int Update(T input);
         int Delete(T input);
-
-        T Find(int Id);
+        T Find(int id);
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
-        IQueryable<T> GetInclude(Expression<Func<T, bool>> filter = null,
-                            params Expression<Func<T, object>>[] include);
+        IQueryable<T> GetAllInclude(Expression<Func<T, bool>> filter = null,
+                                params Expression<Func<T, object>>[] include);
 
     }
 }

@@ -17,7 +17,7 @@ namespace Core6Mvc.Controllers
         }
         public IActionResult Index()
         {
-            var result = productManager.GetInclude(p => p.ProductId > 0,
+            var result = productManager.GetAllInclude(p => p.ProductId > 0,
                 p => p.Category,
                 p => p.Supplier).ToList();
 
@@ -25,10 +25,6 @@ namespace Core6Mvc.Controllers
 
             ICollection<ProductListDTO> products = mapper.Map<ICollection<ProductListDTO>>(result);
             return View(products);
-        }
-        public IActionResult Create()
-        {
-            ProductCreateDTO
         }
     }
 }

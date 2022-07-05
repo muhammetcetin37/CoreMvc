@@ -1,0 +1,18 @@
+﻿Partial View Nedir ?
+
+Partial View sitemizin tasarımını yaparken daha basit bir şekilde tasarım yapmamızı sağlayan Mvc'in özelliklerindendir.
+Bir web sitesinin ana sayfasını düşüncek olursak header,menu,body,footer vb. alanlardan oluşmaktadır.Sayfanın bu bölümlerinden her hangi birinde yapmak istediğimiz değişikliklerde tasarımın yogun olmasından dolayı zorluk çekebiliriz.Bu gibi durumlarda zaman kaybetmemek açısından partial view sayesinde sayfaları parçalara ayırarak bu parçalar üzerinde değişiklik yapmayı kolaylaştırabiliriz.Aynı zamanda oluşturdugumuz partial viewleri cagırdıgımız başka sayfalarda kullanabiliriz.
+
+Partial Viewlerin iki farkı kullanımı vardır. Layout içerisinde model göndermeden veya layout dışında partial viewlere model göndererek kullanabiliriz.
+
+---Uygulamada partial view'e model gönderme:
+
+1-) Models klasörünün içerisinde SliderVM oluşturuldu.
+2-) HomeController içerisindeki Index ve Privacy actionları içerisinde SliderVM modeli üzerinden slider listesi oluşturuldu.
+3-) Home klasörünün altında partials klasörü açıldı ve içerisine _HomeSlider adında razor view oluşturuldu. Razor view oluştururken create as a partial view seçeneği ile oluşturuldu.
+4-) Oluşturmuş olduğumuz _HomeSlider ismindeki partial view'i Index.cshtml ve Privacy.cshtml sayfalarında cagırarak ve partial view'e model göndererek kullandık.
+
+---Uygulamada Layout içerisinde partial view kullanımı:
+
+1-) Shared klasörünün altında Partials klasörü oluşturuldu.Bu klasörün içerisine _footerPartial ve _headerPartial partial view sayfaları oluşturuldu.Layout içerisindeki header tag'i _headerPartial içerisine, footer tag'i _footerPartial içerisine taşıdık.
+2-) Layout sayfası içerisinde _headerPartial ve _footerPartial partial viewleri cagırdık.

@@ -8,6 +8,7 @@ namespace Northwind.BL.Concrete
     public class ManagerBase<T> : IManagerBase<T> where T : class, new()
     {
         protected IRepositoryBase<T> repository;
+
         public ManagerBase()
         {
             repository = new RepositoryBase<T>();
@@ -22,9 +23,9 @@ namespace Northwind.BL.Concrete
             return repository.Delete(input);
         }
 
-        public T Find(int Id)
+        public T Find(int id)
         {
-            return repository.Find(Id);
+            return repository.Find(id);
         }
 
         public List<T> GetAll(Expression<Func<T, bool>> filter = null)
@@ -32,9 +33,9 @@ namespace Northwind.BL.Concrete
             return repository.GetAll(filter);
         }
 
-        public IQueryable<T> GetInclude(Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] include)
+        public IQueryable<T> GetAllInclude(Expression<Func<T, bool>> filter = null, params Expression<Func<T, object>>[] include)
         {
-            return repository.GetInclude(filter, include);
+            return repository.GetAllInclude(filter, include);
         }
 
         public int Update(T input)

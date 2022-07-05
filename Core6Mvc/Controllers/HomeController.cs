@@ -15,12 +15,23 @@ namespace Core6Mvc.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var sliders = new List<SliderVM>();
+            sliders.Add(new SliderVM { Name = "Google", Url = "https://www.google.com" });
+            sliders.Add(new SliderVM { Name = "Microsoft", Url = "https://www.Microsoft.com" });
+            sliders.Add(new SliderVM { Name = "amazon", Url = "https://www.amazon.com" });
+
+            return View(sliders);
+
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            var sliders = new List<SliderVM>();
+            sliders.Add(new SliderVM { Name = "Google", Url = "https://www.google.com" });
+            sliders.Add(new SliderVM { Name = "Microsoft", Url = "https://www.Microsoft.com" });
+            sliders.Add(new SliderVM { Name = "amazon", Url = "https://www.amazon.com" });
+
+            return View(sliders);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

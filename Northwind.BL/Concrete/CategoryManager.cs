@@ -8,22 +8,19 @@ namespace Northwind.BL.Concrete
         public int AddWithName(string categoryName, string description)
         {
             if (categoryName == null)
-            {
-                throw new Exception("Kategory adi boş geçilemez");
-            }
+                throw new Exception("Kategri Adi boş gecilemez.");
             if (categoryName.Length <= 3)
-            {
-                throw new Exception("bu kategory adi 3 den kucuk olamaz");
-            }
+                throw new Exception("Bu kategori adi 3 den küçük olamaz.");
             var result = base.GetAll(p => p.CategoryName == categoryName);
+
             if (result != null)
             {
-                throw new Exception("bu kategory den daha önce tanımlanmıştır");
+                throw new Exception("Bu kategori den daha önce tanimlanmistir.");
             }
+
             Category category = new Category();
             category.CategoryName = categoryName;
             category.Description = description;
-
             return base.Add(category);
         }
     }

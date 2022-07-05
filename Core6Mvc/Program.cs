@@ -13,6 +13,7 @@ builder.Services.AddAutoMapper(typeof(NorthwindProfile));
 
 builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 builder.Services.AddScoped<IProductManager, ProductManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

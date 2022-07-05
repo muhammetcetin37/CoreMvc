@@ -4,6 +4,5 @@ namespace Northwind.BL.Abstract
 {
     public interface IProductManager : IManagerBase<Product>
     {
-
     }
 }
